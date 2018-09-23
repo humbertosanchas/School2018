@@ -16,19 +16,25 @@ public class Food : MonoBehaviour {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         worldState = mainCamera.GetComponent<WorldData>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    //Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnTriggerEnter(Collider other)
     {
-       
+        if(other.gameObject.tag == "Player")
+        {
+            worldState.NumFoodEaten++;
+            worldState.TotalFoodAvailable--;
+            this.gameObject.SetActive(false);
+        }
     }
-    void OnTriggerExit(Collider other)
-    {
-       
-    }
+    //void OnTriggerExit(Collider other)
+    //{
+
+    //}
 
 }

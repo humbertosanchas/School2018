@@ -35,19 +35,25 @@ public class PlayerControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-		ruleAI = new RuleFrameWork();
-		mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-		worldState = mainCamera.GetComponent<WorldData>();
-		lastMove = new NextMovementChoice();
-		nextMove = new NextMovementChoice();
-        nextMove.NextMove =  NextMovementChoice.NextMoveType.NONE ;
+
+        ruleAI = new RuleFrameWork();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        worldState = mainCamera.GetComponent<WorldData>();
+        lastMove = new NextMovementChoice();
+        nextMove = new NextMovementChoice();
+        nextMove.NextMove = NextMovementChoice.NextMoveType.MOVE_NORTH;
         //The world keeps track of the character's data
-		worldState.CharAI1 = this;
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () 
+        worldState.CharAI1 = this;
+    }
+
+    //private void Update()
+    //{
+    //    Forward();
+    //    transform.Translate(new Vector3(dx, dy, dz));
+    //}
+
+    // Update is called once per frame
+    void FixedUpdate () 
 	{
 
         if (worldState.gameOver == true)
@@ -68,12 +74,30 @@ public class PlayerControl : MonoBehaviour {
                 lastMove.NextMove = nextMove.NextMove; //keep track of the last move
                 
                 //TODO: GET the decision from the AI on what to do next
-               // nextMove = ruleAI.RunAI_Evalute(worldState);
+                nextMove = ruleAI.RunAI_Evalute(worldState);
+                Debug.Log(nextMove.NextMove.ToString());
                 worldState.PlayerCurrentSpace = null;
             }
         }
-
 	
+        switch (nextMove.NextMove)
+        {
+            case NextMovementChoice.NextMoveType.MOVE_NORTH:
+                Forward();                
+                break;
+            case NextMovementChoice.NextMoveType.MOVE_EAST:
+                Right();
+                break;
+            case NextMovementChoice.NextMoveType.MOVE_SOUTH:
+                Backward();
+                break;
+            case NextMovementChoice.NextMoveType.MOVE_WEST:
+                Left();
+                break;
+            default:
+                Stop();
+                break;
+        }
 			
 		
 		//Move direction determined by AI

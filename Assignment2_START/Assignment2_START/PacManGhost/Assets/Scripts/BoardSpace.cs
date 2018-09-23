@@ -107,38 +107,43 @@ public class BoardSpace : MonoBehaviour {
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 		worldStateScript = mainCamera.GetComponent<WorldData>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	void OnTriggerEnter( Collider Other )
-	{
-		if(Other.gameObject.tag == "Player")
-		{
-            //sets the world data: keeps track of space the character is in
-			worldStateScript.PlayerCurrentSpace = this;
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void OnTriggerEnter(Collider Other)
+    {
+       
+            if (Other.gameObject.tag == "Player")
+            {
+                //sets the world data: keeps track of space the character is in
+                worldStateScript.PlayerCurrentSpace = this;
+                bPlayerInTrigger = true;
+            }
+            //bVisited = true;
+       
+    }
+
+    void OnTriggerStay(Collider Other)
+    {
+       
+        if (Other.gameObject.tag == "Player")
+        {
             bPlayerInTrigger = true;
         }
-		bVisited = true;
-		
-	}
-	
-	void OnTriggerStay(Collider Other)
-	{
-		if(Other.gameObject.tag == "Player")
-		{
-			bPlayerInTrigger = true;
-		}
-	}
-	
-	void OnTriggerExit( Collider Other )
-	{
-		bPlayerInTrigger = false;
-	}
-	
-	
-	
+        
+    }
+
+    void OnTriggerExit(Collider Other)
+    {      
+       bPlayerInTrigger = false;
+       bVisited = true;              
+    }
+
+
+
 }
 

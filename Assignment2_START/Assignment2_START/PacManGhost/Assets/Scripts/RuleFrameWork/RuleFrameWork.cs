@@ -38,8 +38,14 @@ public class RuleFrameWork {
 	{
 		
 		Rules = new List<Rule>();
-		Rules.Add (new RuleDefault()); 
+		Rules.Add (new RuleDefault());
         //ADD YOUR NEW RULES HERE
+
+        Rules.Add(new RuleNorth());
+        Rules.Add(new RuleEast());
+        Rules.Add(new RuleSouth());
+        Rules.Add(new RuleWest());
+        Rules.Add(new RuleStuck());
 
         foreach (Rule rule in Rules)
 		{
@@ -72,9 +78,7 @@ public class RuleFrameWork {
 		if(highestMatchingRule != null)
 		{
 			bestMove = highestMatchingRule.Execute();
-		}
-		
-			
+		}	
 		
 		return bestMove;	
 	}

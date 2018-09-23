@@ -7,7 +7,7 @@ using System.Collections;
 
 public class NextMovementChoice  {
 
-	public enum NextMoveType{NONE, MOVE_TYPE_MAX}; //Add your moves to this enum
+	public enum NextMoveType{NONE, MOVE_NORTH ,MOVE_EAST, MOVE_SOUTH, MOVE_WEST, MOVE_TYPE_MAX}; //Add your moves to this enum
 	
 	
 	public NextMoveType NextMove

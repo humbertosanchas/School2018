@@ -180,14 +180,20 @@ public class WorldData : MonoBehaviour {
           InitPossibleMoves();
 
         //TODO Check for free positions
-        //Check for open moves on the board and set the appropriate flags 
+        //Check for open moves on the board and set the appropriate flags
+        topFree = isTopNeighbourOpen(playerCurrentSpace,ref topVisited, ref topFood, ref topPowerUp);
+        bottomFree = isBottomNeighbourOpen(playerCurrentSpace, ref bottomVisited, ref bottomFood, ref bottomPowerUp);
+        rightFree = isRightNeighbourOpen(playerCurrentSpace, ref rightVisited, ref rightFood, ref rightPowerUp);
+        leftFree = isLeftNeighbourOpen(playerCurrentSpace, ref leftVisited, ref leftFood, ref leftPowerUp);
+        
         //The world stores  all the open moves for the rule framework
+        
     }
 
     //isTopNeighbourOpen takes in a boardSpace and determines if the spot above the boardspace is free or has food or powerups
-    bool isTopNeighbourOpen( BoardSpace boardSpace, ref bool visited, ref bool isfood, ref bool isPowerUp )
+    bool isTopNeighbourOpen(BoardSpace boardSpace, ref bool visited, ref bool isfood, ref bool isPowerUp )
 	{
-		bool bFreeToMove = true;
+		bool bFreeToMove = false;
 		
 		
 		if(boardSpace.TopRow == OUT_OF_BOUNDS )
@@ -197,13 +203,20 @@ public class WorldData : MonoBehaviour {
 		else 
 		{
             //TODO: ADD YOUR CODE HERE
+            if(gameBoardSpaces[boardSpace.TopRow, playerCurrentSpace.column].isSpaceFree)
+            {
+                visited = gameBoardSpaces[boardSpace.TopRow, playerCurrentSpace.column].Visited;
+                isfood = gameBoardSpaces[boardSpace.TopRow, playerCurrentSpace.column].hasFood;
+                isPowerUp = gameBoardSpaces[boardSpace.TopRow, playerCurrentSpace.column].hasPowerUp;                
+                bFreeToMove = true;             
+            }
         }
         return bFreeToMove;
 	}
     //isBottomNeighbourOpen takes in a boardSpace and determines if the spot below the boardspace is free or has food or powerups
     bool isBottomNeighbourOpen( BoardSpace boardSpace, ref bool visited, ref bool isfood, ref bool isPowerUp)
 	{
-		bool bFreeToMove = true;
+		bool bFreeToMove = false;
 		
 		if(boardSpace.BottomRow == MAX_ROW )
 		{
@@ -211,15 +224,22 @@ public class WorldData : MonoBehaviour {
 		}
 		else 
 		{
-			//TODO: ADD YOUR CODE HERE
+            //TODO: ADD YOUR CODE HERE
+            if (gameBoardSpaces[boardSpace.BottomRow, playerCurrentSpace.column].isSpaceFree)
+            {
+                visited = gameBoardSpaces[boardSpace.BottomRow, playerCurrentSpace.column].Visited;
+                isfood = gameBoardSpaces[boardSpace.BottomRow, playerCurrentSpace.column].hasFood;
+                isPowerUp = gameBoardSpaces[boardSpace.BottomRow, playerCurrentSpace.column].hasPowerUp;                
+                bFreeToMove = true;                
+            }
         }
 		return bFreeToMove;
 	}
 
     //isLeftNeighbourOpen takes in a boardSpace and determines if the spot left of the boardspace is free or has food or powerups
-    bool isLeftNeighbourOpen(  BoardSpace boardSpace, ref bool visited, ref bool isfood, ref bool isPowerUp)
+    bool isLeftNeighbourOpen( BoardSpace boardSpace, ref bool visited, ref bool isfood, ref bool isPowerUp)
 	{
-		bool bFreeToMove = true;
+		bool bFreeToMove = false;
 		
 		if(boardSpace.LeftColumn == OUT_OF_BOUNDS )
 		{
@@ -228,6 +248,13 @@ public class WorldData : MonoBehaviour {
 		else 
 		{
             //TODO: ADD YOUR CODE HERE
+            if (gameBoardSpaces[playerCurrentSpace.row, boardSpace.LeftColumn].isSpaceFree)
+            {
+                visited = gameBoardSpaces[playerCurrentSpace.row, boardSpace.LeftColumn].Visited;
+                isfood = gameBoardSpaces[playerCurrentSpace.row, boardSpace.LeftColumn].hasFood;
+                isPowerUp = gameBoardSpaces[playerCurrentSpace.row, boardSpace.LeftColumn].hasPowerUp;                
+                bFreeToMove = true;                
+            }
         }
         return bFreeToMove;
 	}
@@ -235,7 +262,7 @@ public class WorldData : MonoBehaviour {
     //isRightNeighbourOpen takes in a boardSpace and determines if the spot right of the boardspace is free or has food or powerups
     bool isRightNeighbourOpen(  BoardSpace boardSpace, ref bool visited, ref bool isfood, ref bool isPowerUp)
 	{
-		bool bFreeToMove = true;
+		bool bFreeToMove = false;
 		
 		if(boardSpace.RightColumn == MAX_COLUMN )
 		{
@@ -244,6 +271,13 @@ public class WorldData : MonoBehaviour {
 		else
 		{
             //TODO: ADD YOUR CODE HERE
+            if (gameBoardSpaces[playerCurrentSpace.row, boardSpace.RightColumn].isSpaceFree)
+            {
+                visited = gameBoardSpaces[playerCurrentSpace.row, boardSpace.RightColumn].Visited;
+                isfood = gameBoardSpaces[playerCurrentSpace.row, boardSpace.RightColumn].hasFood;
+                isPowerUp = gameBoardSpaces[playerCurrentSpace.row, boardSpace.RightColumn].hasPowerUp;                
+                bFreeToMove = true;               
+            }
         }
         return bFreeToMove;
 	}
@@ -309,14 +343,23 @@ public class WorldData : MonoBehaviour {
 				
 				gameBoardSpaces[i,j] = boardSpace;
 				gameBoard[i,j] = boardSpot;
-         
+                if(boardSpace.hasFood)
+                {
+                    TotalFoodAvailable++;
+                }
+                if(boardSpace.hasPowerUp)
+                {
+                    TotalPowerUps++;
+                }
+                if(boardSpace.isSpaceFree)
+                {
+                    TotalFreeSpaces++;
+                }         
             }
 		}
 
         //set the initial current position of player on board
-		playerCurrentSpace = gameBoard[10,10].GetComponent<BoardSpace>();
-	
-	
+		playerCurrentSpace = gameBoard[10,10].GetComponent<BoardSpace>();	
 	}
 	
 	// Update is called once per frame
@@ -333,7 +376,6 @@ public class WorldData : MonoBehaviour {
          }
 
         WorldInformationText.text = "Total Food " + TotalFoodAvailable + "  Num Food Eaten So Far: " + NumFoodEaten;
-
        
         if(gameOver)
         {

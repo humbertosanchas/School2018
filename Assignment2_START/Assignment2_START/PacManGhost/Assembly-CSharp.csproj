@@ -67,7 +67,12 @@
     <Compile Include="Assets\Scripts\RuleFrameWork\NextMovementChoice.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\Rule.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleDefault.cs" />
+    <Compile Include="Assets\Scripts\RuleFrameWork\RuleEast.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleFrameWork.cs" />
+    <Compile Include="Assets\Scripts\RuleFrameWork\RuleNorth.cs" />
+    <Compile Include="Assets\Scripts\RuleFrameWork\RuleSouth.cs" />
+    <Compile Include="Assets\Scripts\RuleFrameWork\RuleStuck.cs" />
+    <Compile Include="Assets\Scripts\RuleFrameWork\RuleWest.cs" />
     <Compile Include="Assets\Scripts\WorldData.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Humberto/Source/Repos/School2018/Assignment2_START/Assignment2_START/PacManGhost/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
