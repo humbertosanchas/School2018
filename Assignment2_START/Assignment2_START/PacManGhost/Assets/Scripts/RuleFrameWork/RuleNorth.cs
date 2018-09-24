@@ -7,7 +7,8 @@ class RuleNorth : Rule
 {
     override public bool Match(WorldData worldState)
     {
-        if(worldState.TopFree && !worldState.TopVisited)
+        rulePriority = RuleFrameWork.RulePriorityType.PRIORITY1;
+        if (worldState.TopFree && !worldState.TopVisited)
         {
             if (worldState.TopFood)
             {

@@ -7,6 +7,7 @@ class RuleWest : Rule
 {
     override public bool Match(WorldData worldState)
     {
+        rulePriority = RuleFrameWork.RulePriorityType.PRIORITY1;
         if (worldState.LeftFree && !worldState.LeftVisited)
         {
             if (worldState.LeftFood)

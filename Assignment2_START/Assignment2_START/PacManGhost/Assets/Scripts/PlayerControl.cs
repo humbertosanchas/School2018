@@ -72,11 +72,13 @@ public class PlayerControl : MonoBehaviour {
             {
                 Debug.Log("Reached position, get new position");
                 lastMove.NextMove = nextMove.NextMove; //keep track of the last move
-                
+                worldState.LastMove = lastMove.NextMove;
+
                 //TODO: GET the decision from the AI on what to do next
                 nextMove = ruleAI.RunAI_Evalute(worldState);
                 Debug.Log(nextMove.NextMove.ToString());
                 worldState.PlayerCurrentSpace = null;
+                
             }
         }
 	

@@ -6,9 +6,10 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class WorldData : MonoBehaviour {
-	
+public class WorldData : MonoBehaviour {   
+
 	const int MAX_ROW = 11;
 	const int MAX_COLUMN = 11;
 	const int OUT_OF_BOUNDS = -1;
@@ -17,6 +18,12 @@ public class WorldData : MonoBehaviour {
 	GameObject[,] gameBoard;
 	BoardSpace[,] gameBoardSpaces;
 	PlayerControl PC;
+
+
+    public BoardSpace[,] GetBoardSpaces
+    {
+        get { return gameBoardSpaces; }
+    }
 	
 	bool topFree;
 	bool bottomFree;
@@ -46,6 +53,10 @@ public class WorldData : MonoBehaviour {
 	bool rightVisited;
 
     public Text WorldInformationText;
+
+    NextMovementChoice.NextMoveType lastMove;
+
+    
 
     [HideInInspector]
     public int NumSquaresVisted;
@@ -173,6 +184,13 @@ public class WorldData : MonoBehaviour {
 		get {return rightVisited;}
 	}
 	
+
+    public NextMovementChoice.NextMoveType LastMove
+    {
+        get { return lastMove; }
+        set { lastMove = value; }
+    }
+
 	public void DetermineOpenMoves( BoardSpace charSpace  )
 	{
 		
@@ -317,6 +335,8 @@ public class WorldData : MonoBehaviour {
         gameOver = false;
         NumFoodEaten = 0;
         NumPowerEaten = 0;
+
+        lastMove = NextMovementChoice.NextMoveType.NONE;
     }
 	
 	// Use this for initialization
@@ -345,7 +365,8 @@ public class WorldData : MonoBehaviour {
 				gameBoard[i,j] = boardSpot;
                 if(boardSpace.hasFood)
                 {
-                    TotalFoodAvailable++;
+                    TotalFoodAvailable++;                    
+
                 }
                 if(boardSpace.hasPowerUp)
                 {

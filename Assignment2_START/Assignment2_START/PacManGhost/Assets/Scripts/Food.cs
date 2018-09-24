@@ -28,8 +28,9 @@ public class Food : MonoBehaviour {
         if(other.gameObject.tag == "Player")
         {
             worldState.NumFoodEaten++;
-            worldState.TotalFoodAvailable--;
+            worldState.TotalFoodAvailable--;           
             this.gameObject.SetActive(false);
+
         }
     }
     //void OnTriggerExit(Collider other)

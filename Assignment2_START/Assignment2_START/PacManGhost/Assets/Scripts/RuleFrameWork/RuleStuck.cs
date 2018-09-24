@@ -7,6 +7,8 @@ class RuleStuck : Rule
 {
 
     List<NextMovementChoice.NextMoveType> backTrackMoves = new List<NextMovementChoice.NextMoveType>();
+    NextMovementChoice lastMove = new NextMovementChoice();
+
 
     override public bool Match(WorldData worldState)
     {
@@ -40,6 +42,7 @@ class RuleStuck : Rule
         int r = rand.Next(0, backTrackMoves.Count - 1);
         nextChoice.NextMove = backTrackMoves[r];
         backTrackMoves.Clear();
+        lastMove = nextChoice;
         return nextChoice;
     }
 
