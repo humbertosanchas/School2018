@@ -28,7 +28,7 @@ class RuleStuck : Rule
             }
             if (worldState.LeftFree && worldState.LeftVisited)
             {
-                backTrackMoves.Add(NextMovementChoice.NextMoveType.MOVE_EAST);
+                backTrackMoves.Add(NextMovementChoice.NextMoveType.MOVE_WEST);
             }
             return true;
         }
@@ -39,7 +39,7 @@ class RuleStuck : Rule
     {
         NextMovementChoice nextChoice = new NextMovementChoice();
         Random rand = new Random();
-        int r = rand.Next(0, backTrackMoves.Count - 1);
+        int r = rand.Next(0, backTrackMoves.Count);
         nextChoice.NextMove = backTrackMoves[r];
         backTrackMoves.Clear();
         lastMove = nextChoice;

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleDefault.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleEast.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleFrameWork.cs" />
+    <Compile Include="Assets\Scripts\RuleFrameWork\RuleGameOver.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleNearestFood.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleNorth.cs" />
     <Compile Include="Assets\Scripts\RuleFrameWork\RuleSouth.cs" />

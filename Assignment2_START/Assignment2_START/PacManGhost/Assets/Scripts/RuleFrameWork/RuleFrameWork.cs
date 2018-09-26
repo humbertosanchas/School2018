@@ -5,6 +5,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class RuleFrameWork {
 	
@@ -46,6 +47,7 @@ public class RuleFrameWork {
         Rules.Add(new RuleSouth());
         Rules.Add(new RuleWest());
         Rules.Add(new RuleStuck());
+        Rules.Add(new RuleGameOver());
 
         foreach (Rule rule in Rules)
 		{
@@ -71,6 +73,16 @@ public class RuleFrameWork {
 					highestRulePriority = rule.rulePriority;
 					highestMatchingRule = rule;
 				}
+                else if(rule.rulePriority == highestRulePriority)
+                {
+                    var r = new System.Random();
+                    int decider = r.Next(0, 2);
+                    if(decider == 0)
+                    {
+                        highestRulePriority = rule.rulePriority;
+                        highestMatchingRule = rule;
+                    }                  
+                }
 			}
 		}
 				

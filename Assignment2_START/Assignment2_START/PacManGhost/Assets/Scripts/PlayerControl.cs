@@ -96,6 +96,9 @@ public class PlayerControl : MonoBehaviour {
             case NextMovementChoice.NextMoveType.MOVE_WEST:
                 Left();
                 break;
+            case NextMovementChoice.NextMoveType.MOVE_TYPE_MAX:
+                worldState.gameOver = true;
+                break;
             default:
                 Stop();
                 break;
